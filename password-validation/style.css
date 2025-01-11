@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Inter:opsz,wght@14..32,100..900&family=Montserrat:wght@100..900&family=Parkinsans:wght@300..800&family=Playwrite+AU+SA:wght@100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Varela+Round&display=swap');
+
+*{
+    font-family: "Afacad Flux", serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: skyblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container{
+    width: fit-content;
+    height: 50%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+   
+}
+
+.container .pass-field{
+    position: relative;
+}
+.container .pass-field input{
+    outline: none;
+    border: none;
+    width: 280px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 6px;
+    font-size: 1.5rem;
+}
+
+.container .pass-field i{
+    position: absolute;
+    right: 11px;
+    top: 13px;
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.container .wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.container .wrapper p{
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: crimson;
+    margin-top: 5px;
+}
+
+.container .wrapper .list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style-type: none;
+    margin-right: 20px;
+}
+
+.container .wrapper .list li{
+    padding: 4px;
+    
+}
+
+.container .wrapper .list li i{
+    margin-right: 5px;
+    font-size: 10px;
+    opacity: 0.5;
+}
+
+.wrapper .list li.valid i{
+    font-size: 1rem;
+    color: #4285f4;
+}
+
+.wrapper .list li.valid span{
+    color: #999;
+}
