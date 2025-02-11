@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Hover Card</title>
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #0a0a0a, #3a4452);
+            margin: 0;
+            perspective: 1000px;
+        }
+
+        .card {
+            width: 300px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: all 0.5s ease;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(transparent, rgba(0, 255, 251, 0.1));
+            filter: blur(10px);
+            z-index: -1;
+        }
+
+        .content {
+            padding: 25px;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+            transform: translateZ(30px);
+        }
+
+        .title {
+            font-size: 24px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .description {
+            font-size: 16px;
+            line-height: 1.5;
+            opacity: 0.8;
+        }
+
+        .button {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-50%) scale(1.05);
+        }
+
+        .glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, 
+                rgba(0, 255, 251, 0.3),
+                transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="glow"></div>
+        <div class="content">
+            <h2 class="title">Hover Effect</h2>
+            <p class="description">This is an amazing 3D card with hover effect, dynamic lighting, and smooth transitions. Move your mouse around to see the magic!</p>
+            <button class="button">Explore More</button>
+        </div>
+    </div>
+
+    <script>
+        const card = document.querySelector('.card');
+        const glow = document.querySelector('.glow');
+
+        card.addEventListener('mousemove', (e) => {
+            const { left, top, width, height } = card.getBoundingClientRect();
+            const x = (e.clientX - left - width/2) / 25;
+            const y = (e.clientY - top - height/2) / 25;
+            
+            card.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+            
+            // Glow effect
+            const glowX = (e.clientX - left) / width * 100;
+            const glowY = (e.clientY - top) / height * 100;
+            glow.style.background = `radial-gradient(circle at ${glowX}% ${glowY}%, 
+                rgba(0, 255, 251, 0.3),
+                transparent 60%)`;
+            glow.style.opacity = '1';
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'rotateY(0) rotateX(0)';
+            glow.style.opacity = '0';
+        });
+
+        // Add subtle ambient movement
+        let time = 0;
+        function animate() {
+            time += 0.005;
+            const x = Math.sin(time) * 2;
+            const y = Math.cos(time * 0.8) * 2;
+            card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+            requestAnimationFrame(animate);
+        }
+        
+        // Start animation when not hovering
+        let isHovering = false;
+        card.addEventListener('mouseenter', () => isHovering = true);
+        card.addEventListener('mouseleave', () => {
+            isHovering = false;
+            animate();
+        });
+        animate();
+    </script>
+</body>
+</html>

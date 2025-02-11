@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Hover Card with Light Gradient Overlay</title>
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    /* Body Styling */
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+    /* Container for 3D Perspective */
+    .card-container {
+      perspective: 1000px;
+    }
+    /* Card Styling */
+    .card {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      background: #fff;
+      border-radius: 15px;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    /* Pseudo-element for the light gradient overlay */
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.6),
+        rgba(240, 240, 240, 0.3)
+      );
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+    /* Show the gradient overlay when hovered (via a class) */
+    .card.hovered::before {
+      opacity: 1;
+    }
+    /* Image Styling */
+    .card img {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      z-index: 2;
+    }
+    /* Content Styling */
+    .card-content {
+      position: relative;
+      padding: 20px;
+      z-index: 2;
+    }
+    .card-content h2 {
+      margin-bottom: 10px;
+    }
+    .card-content p {
+      color: #555;
+      line-height: 1.5;
+    }
+    .card:hover{
+        cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="card-container">
+    <div class="card" id="card">
+      <img src="https://media.istockphoto.com/id/814423752/photo/eye-of-model-with-colorful-art-make-up-close-up.jpg?s=612x612&w=0&k=20&c=l15OdMWjgCKycMMShP8UK94ELVlEGvt7GmB_esHWPYE=" alt="Random Image" />
+      <div class="card-content">
+        <h2>3D Hover Card</h2>
+        <p>
+          Hover over this card to see an awesome 3D rotation along with a subtle light gradient overlay.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const card = document.getElementById("card");
+
+    // Rotate the card based on mouse movement
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const deltaX = e.clientX - centerX;
+      const deltaY = e.clientY - centerY;
+      const percentX = deltaX / (rect.width / 2);
+      const percentY = deltaY / (rect.height / 2);
+      const rotateY = percentX * 10;  // Adjust multiplier for effect intensity
+      const rotateX = -percentY * 10; // Inverted for natural feel
+
+      card.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
+    });
+
+    // Add gradient overlay and enhanced shadow on mouse enter
+    card.addEventListener("mouseenter", () => {
+      card.classList.add("hovered");
+      card.style.transition = "transform 0.1s ease, box-shadow 0.1s ease";
+      card.style.boxShadow = "0 30px 60px rgba(0, 0, 0, 0.3)";
+    });
+
+    // Reset effects when mouse leaves the card
+    card.addEventListener("mouseleave", () => {
+      card.classList.remove("hovered");
+      card.style.transition = "transform 0.5s ease, box-shadow 0.5s ease";
+      card.style.transform = "rotateY(0deg) rotateX(0deg)";
+      card.style.boxShadow = "0 20px 40px rgba(0, 0, 0, 0.2)";
+    });
+  </script>
+</body>
+</html>
