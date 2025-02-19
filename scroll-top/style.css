@@ -1,0 +1,49 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.sec1,
+.sec2{
+    background: url(./image/bg-3.webp) no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+.sec2{
+    background: url(./image/bg-2.jpg) no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+h1{
+    font-size: 40px;
+    padding: 10px 30px;
+}
+
+p{
+    text-align: justify;
+    padding: 0px 30px 15px 30px;
+}
+
+span{
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    font-size: 45px;
+    background-color: #0f55ed;
+    color: white;
+    padding: 7px 10px; 
+    border-radius: 50%;
+    cursor: pointer;
+    
+    /* pointer-events: none; */
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+}
+
+span:hover{
+    background: #0d4aa5;
+    transition: 0.5s;
+}
